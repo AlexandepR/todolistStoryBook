@@ -49,7 +49,7 @@ export const todolistsAPI = {
         const promise = axios.delete<ResponseType<{}>>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`, settings)
         return promise;
     },
-    updateTodilist(id: string, title: string) {
+    updateTodolist(id: string, title: string) {
        const promise = axios.put<ResponseType<{}>>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${id}`, {title: title} , settings)
         return promise;
     },
