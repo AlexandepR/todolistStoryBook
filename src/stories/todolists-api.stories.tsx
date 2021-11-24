@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import axios from 'axios'
 import {todolistsAPI} from "../api/todolist-api";
 
 export default {
@@ -53,7 +52,7 @@ export const UpdateTodolistTitle = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
         const todolistId = '045b4034-dc61-46bb-8d45-95f194053c70'
-            todolistsAPI.updateTodolist(todolistId, 'Hi Alex')
+        todolistsAPI.updateTodolist(todolistId, 'Hi Alex')
             .then((res) => {
                 setState(res.data)
             })
@@ -62,15 +61,43 @@ export const UpdateTodolistTitle = () => {
 }
 
 export const GetTasks = () => {
-    const [state,setState] = useState<any>(null)
+    const [state, setState] = useState<any>(null)
 
-    useEffect( () => {
+    useEffect(() => {
         const todolistId = '045b4034-dc61-46bb-8d45-95f194053c70';
         todolistsAPI.getTasks(todolistId)
-            .then ((res) => {
+            .then((res) => {
                 setState(res.data)
             })
-    },[])
+    }, [])
     return <div>{JSON.stringify(state)}</div>
 }
 
+export const DeleteTask = () => {
+    const [state, setState] = useState<any>(null)
+    const [taskId, setTaskId] = useState<string>('')
+    const [todolistId, setTodolistId] = useState<string>('')
+
+    const deleteTask = () => {
+        const todolistId = ''
+        const taskId = ''
+        todolistsAPI.deleteTask(todolistId, taskId)
+            .then((res) => {
+                setState(res.data)
+            })
+    }
+    return <div>{JSON.stringify(state)}
+        <div>
+            <input
+                placeholder={'todolistId'}
+                value={todolistId}
+                onChange={(e) => {setTodolistId(e.currentTarget.value)}}
+            />
+            <input
+                placeholder={'taskId'}
+                value={taskId}
+                onChange={(e) => {setTaskId(e.currentTarget.value)}}/>
+            <button onClick={deleteTask}>delete task</button>
+        </div>
+    </div>
+}

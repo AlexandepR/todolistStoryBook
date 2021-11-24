@@ -12,7 +12,7 @@ const instance = axios.create({
     headers: {
         "API-KEY": 'de5ff970-0eb1-4623-af3f-da464b72caae'
     }
-        // ...settings
+    // ...settings
 })
 
 export type todolistType = {
@@ -38,7 +38,7 @@ type _updateTodolistResponseType = {
     messages: string[],
     data: {}
 }
-type ResponseType<D> = {
+type ResponseType<D = {}> = {
     resultCode: number
     messages: string[],
     data: D
@@ -62,6 +62,15 @@ export type TaskType = {
     order: number
     addedDate: string
 }
+export type UpdateTaskModelType = {
+    title: string
+    description: string
+    completed: boolean
+    status: number
+    priority: number
+    startDate: string
+    deadline: string
+}
 
 export const todolistsAPI = {
     getTodolist() {
@@ -69,19 +78,25 @@ export const todolistsAPI = {
         return promise;
     },
     createTodolist(title: string) {
-        const promise = instance.post<ResponseType<{item: todolistType}>>('todo-lists', {title: title})
+        const promise = instance.post<ResponseType<{ item: todolistType }>>('todo-lists', {title: title})
         return promise;
     },
     deleteTodolist(id: string) {
-        const promise = instance.delete<ResponseType<{}>>(`todo-lists/${id}`)
+        const promise = instance.delete<ResponseType>(`todo-lists/${id}`)
         return promise;
     },
     updateTodolist(id: string, title: string) {
-       const promise = instance.put<ResponseType<{}>>(`todo-lists/${id}`, {title: title} )
+        const promise = instance.put<ResponseType>(`todo-lists/${id}`, {title: title})
         return promise;
     },
-    getTasks(todolistId:string) {
-        const promise = instance.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`)
-        return promise;
+    getTasks(todolistId: string) {
+        return instance.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`)
+    },
+    deleteTask(todolistId: string, taskId: string) {
+        const promise = instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`)
+        return promise
+    },
+    updateTask(todolistId: string, taskId:string, model: UpdateTaskModelType){
+
     }
 }
