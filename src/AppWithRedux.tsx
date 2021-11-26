@@ -9,31 +9,17 @@ import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
-    removeTodolistAC,
-    todolistsReducer
+    removeTodolistAC
 } from './state/todolists-reducer';
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './state/tasks-reducer';
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './state/tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './state/store';
 
-export type FilterValuesType = "all" | "active" | "completed";
-export type TodolistType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
-/*
-const Fake = React.memo(function() {
-    console.log("FAKE")
-    const arr = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks.count)
-    return <h1>{arr.length}</h1>
-})
-*/
 
 function AppWithRedux() {
     console.log("App is called")
@@ -54,7 +40,7 @@ function AppWithRedux() {
         dispatch(action);
     }, [dispatch]);
 
-    const changeStatus = useCallback(function (id: string, isDone: boolean, todolistId: string) {
+    const changeStatus = useCallback(function (id: string, status: TaskStatuses, todolistId: string) {
         const action = changeTaskStatusAC(id, isDone, todolistId);
         dispatch(action);
     }, [dispatch]);
