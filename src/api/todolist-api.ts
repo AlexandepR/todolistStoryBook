@@ -15,7 +15,7 @@ const instance = axios.create({
     // ...settings
 })
 
-export type todolistType = {
+export type TodolistType = {
     id: string
     title: string
     addedDate: string
@@ -25,7 +25,7 @@ type _CreateTodolistResponseType = {
     resultCode: number
     messages: string[]
     data: {
-        item: todolistType
+        item: TodolistType
     }
 }
 type _DeleteTodolistResponseType = {
@@ -74,11 +74,11 @@ export type UpdateTaskModelType = {
 
 export const todolistsAPI = {
     getTodolist() {
-        const promise = instance.get<todolistType[]>('todo-lists')
+        const promise = instance.get<TodolistType[]>('todo-lists')
         return promise;
     },
     createTodolist(title: string) {
-        const promise = instance.post<ResponseType<{ item: todolistType }>>('todo-lists', {title: title})
+        const promise = instance.post<ResponseType<{ item: TodolistType }>>('todo-lists', {title: title})
         return promise;
     },
     deleteTodolist(id: string) {
