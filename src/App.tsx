@@ -5,9 +5,10 @@ import {v1} from 'uuid';
 import {AddItemForm} from './AddItemForm';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core';
 import {Menu} from '@material-ui/icons';
-import {TaskType, TodolistType} from "./api/todolist-api";
+import {TaskStatuses, TaskType} from "./api/todolist-api";
+import {TodolistDomainType} from "./state/todolists-reducer";
 
-export type FilterValuesType = "all" | "active" | "completed";
+
 
 
 export type TasksStateType = {
@@ -19,15 +20,16 @@ function App() {
     let todolistId1 = v1();
     let todolistId2 = v1();
 
-    let [todolists, setTodolists] = useState<Array<TodolistType>>([
-        {id: todolistId1, title: "What to learn", filter: "all"},
-        {id: todolistId2, title: "What to buy", filter: "all"}
+    let [todolists, setTodolists] = useState<Array<TodolistDomainType>>([
+        {id: todolistId1, title: "What to learn", filter: "all", addedDate: '', order: 0},
+        {id: todolistId2, title: "What to buy", filter: "all", addedDate: '', order: 0}
     ])
 
     let [tasks, setTasks] = useState<TasksStateType>({
         [todolistId1]: [
-            {id: v1(), title: "HTML&CSS", isDone: true},
-            {id: v1(), title: "JS", isDone: true}
+            {id: v1(), title: "HTML&CSS", status: TaskStatuses.Completed, todoListId: todolistId1,
+                startDate: '', dealine: '', order },
+            {id: v1(), title: "JS", status: TaskStatuses.Completed}
         ],
         [todolistId2]: [
             {id: v1(), title: "Milk", isDone: true},
