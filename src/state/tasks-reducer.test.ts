@@ -87,3 +87,11 @@ test('propertry with todolistId should be deleted', () => {
     expect(keys.length).toBe(1);
     expect(endState["todolistId2"]).not.toBeDefined();
 });
+
+test('empty arrays should be added when we set todolists', () => {
+    const action = setTodoliststAC([
+        {id: '1', title: 'title1', order: 0, addedDate:''},
+        {id: '2', title: 'title2', order: 0, addedDate:''}
+    ])
+
+})
