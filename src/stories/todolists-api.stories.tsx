@@ -36,19 +36,30 @@ export const CreateTodolist = () => {
     return <div> {JSON.stringify(state)}</div>
 }
 
-// export const deleteTodolist = () => {
-//     const [state, setState] = useState<any>(null)
-//     const todolistId = 'b57fd56e-8bc0-452c-b46b-fdaa704905be'
-//     useEffect(() => {
-//             todolistsAPI.deleteTodolist(todolistId)
-//             .then((res) => {
-//                 setState(res.data)
-//             })
-//     }, [])
-//
-//     return <div> {JSON.stringify(state)}</div>
-// }
-
+export const DeleteTodolist = () => {
+    const [state, setState] = useState<any>(null)
+    const [todolistId, setTodolistId] = useState<string>('')
+    // const todolistId = 'afa4080e-0c14-4291-b6ad-22180abf7bf1'
+    // useEffect(() => {
+    const deleteTodolist = ()=> {
+        const todolistId = ''
+        todolistsAPI.deleteTodolist(todolistId)
+            .then((res) => {
+                setState(res.data)
+            })
+        // }, [])
+    }
+    return <div> {JSON.stringify(state)}
+            <div>
+                <input
+                placeholder={'todolistId'}
+                value={todolistId}
+                onChange={(e) => {setTodolistId(e.currentTarget.value)}}
+                />
+                <button onClick={deleteTodolist}>DelTodolist</button>
+            </div>
+    </div>
+}
 export const UpdateTodolistTitle = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
@@ -60,7 +71,6 @@ export const UpdateTodolistTitle = () => {
     }, [])
     return <div> {JSON.stringify(state)}</div>
 }
-
 export const GetTasks = () => {
     const [state, setState] = useState<any>(null)
     const [todolistId, setTodolistId] = useState<string>('')
@@ -80,7 +90,6 @@ export const GetTasks = () => {
         <button onClick={getTasks}>get task</button>
     </div>
 }
-
 export const DeleteTask = () => {
     const [state, setState] = useState<any>(null)
     const [taskId, setTaskId] = useState<string>('')
