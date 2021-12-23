@@ -1,11 +1,12 @@
 import {v1} from 'uuid';
 import {
     AddTodolistActionType,
-    RemoveTodolistActionType,
+    RemoveTodolistActionType, setTodolistsAC,
     SetTodolistsActionType
 } from './todolists-reducer';
 import {TasksStateType} from '../App';
-import {TaskPriorities, TaskStatuses, TaskType} from "../api/todolist-api";
+import {TaskPriorities, TaskStatuses, TaskType, todolistsAPI} from "../api/todolist-api";
+import {Dispatch} from "redux";
 
 export type RemoveTaskActionType = {
     type: 'REMOVE-TASK',
@@ -130,4 +131,14 @@ export const changeTaskTitleAC = (taskId: string, title: string, todolistId: str
 }
 export const setTasksAC = (tasks: Array<TaskType>, todolistId: string ): SetTasksActionType => {
     return{type: 'SET-TASKS', todolistId, tasks}
+}
+export const fetchTasksTC = (todolistId:string) => {
+    return (dispatch: Dispatch) => {
+        todolistsAPI.getTasks(todolistId)
+            .then((res) => {
+                const tasks = res.data.items
+                const action = setTasksAC(tasks, todolistId)
+                dispatch(action)
+            })
+    }
 }

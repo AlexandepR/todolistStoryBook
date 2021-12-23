@@ -127,5 +127,5 @@ test('tasks should be added for todolist', () => {
     }, action)
 
     expect(endState['todolistId1'].length).toBe(3)
-    expect(endState['todolistId2'].length).toBe(0)
+    expect(endState['todolistId2'].length).toBe(0  )
 })
