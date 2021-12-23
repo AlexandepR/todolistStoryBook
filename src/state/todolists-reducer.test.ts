@@ -59,3 +59,7 @@ test('correct filter of todolist should be changed', () => {
     expect(endState[1].filter).toBe(newFilter);
 });
 
+test ('todolists should be set to the state', () => {
+    
+})
+
