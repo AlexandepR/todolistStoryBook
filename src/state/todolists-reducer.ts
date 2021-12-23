@@ -20,6 +20,10 @@ export type ChangeTodolistFilterActionType = {
     id: string
     filter: FilterValuesType
 }
+export type SetTodolistActionType = {
+    type: 'SET-TODOLISTS',
+    todolists: Array<TodolistType>
+}
 
 type ActionsType = RemoveTodolistActionType | AddTodolistActionType
     | ChangeTodolistTitleActionType
@@ -81,3 +85,6 @@ export const changeTodolistFilterAC = (id: string, filter: FilterValuesType): Ch
     return {type: 'CHANGE-TODOLIST-FILTER', id: id, filter: filter}
 }
 
+export const setTodolistAC = (todolists: Array<TodolistType>): SetTodolistActionType => {
+    return {type: 'SET-TODOLISTS', todolists: todolists}
+}

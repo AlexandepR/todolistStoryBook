@@ -110,7 +110,6 @@ export const DeleteTask = () => {
     </div>
 }
 
-
 export const CreateTask = () => {
     const [state, setState] = useState<any>(null)
     const [taskTitle, setTaskTitle] = useState<string>('')
@@ -164,12 +163,24 @@ export const UpdateTask = () => {
     }
     return <div>{JSON.stringify(state)}
         <div>
-            <input placeholder={'taskId'} value={taskId} onChange={(e) => {setTaskId(e.currentTarget.value)}}/>
-            <input placeholder={'todolistId'} value={todolistId} onChange={(e) => {setTodolistId(e.currentTarget.value)}}/>
-            <input placeholder={'task Title'} value={title} onChange={(e) => {setTitle(e.currentTarget.value)}}/>
-            <input placeholder={'Description'} value={description} onChange={(e) => {setDescription(e.currentTarget.value)}}/>
-            <input placeholder={'status'} value={status} onChange={(e) => {setStatus(+e.currentTarget.value)}}/>
-            <input placeholder={'priority'} value={priority} onChange={(e) => {setPriority(+e.currentTarget.value)}}/>
+            <input placeholder={'taskId'} value={taskId} onChange={(e) => {
+                setTaskId(e.currentTarget.value)
+            }}/>
+            <input placeholder={'todolistId'} value={todolistId} onChange={(e) => {
+                setTodolistId(e.currentTarget.value)
+            }}/>
+            <input placeholder={'task Title'} value={title} onChange={(e) => {
+                setTitle(e.currentTarget.value)
+            }}/>
+            <input placeholder={'Description'} value={description} onChange={(e) => {
+                setDescription(e.currentTarget.value)
+            }}/>
+            <input placeholder={'status'} value={status} onChange={(e) => {
+                setStatus(+e.currentTarget.value)
+            }}/>
+            <input placeholder={'priority'} value={priority} onChange={(e) => {
+                setPriority(+e.currentTarget.value)
+            }}/>
             <button onClick={createTask}>update task</button>
         </div>
     </div>
