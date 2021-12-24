@@ -50,7 +50,18 @@ function AppWithReducers() {
     }
 
     function addTask(title: string, todolistId: string) {
-        const action = addTaskAC(title, todolistId);
+        const action = addTaskAC ({
+            todoListId: todolistId,
+            title: title,
+            status: TaskStatuses.New,
+            addedDate: '',
+            deadline: '',
+            description: '',
+            order: 0,
+            priority: 0,
+            startDate: '',
+            id: 'id exists'
+        })
         dispatchToTasks(action);
     }
 
