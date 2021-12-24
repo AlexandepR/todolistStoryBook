@@ -79,7 +79,7 @@ export type TaskType = {
 export type UpdateTaskModelType = {
     title: string
     description: string
-    status: number
+    status: TaskStatuses
     priority: number
     startDate: string
     deadline: string
