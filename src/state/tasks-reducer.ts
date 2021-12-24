@@ -60,7 +60,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         case 'ADD-TASK': {
             const stateCopy = {...state}
             const newTask = action.task
-            const tasks = stateCopy[newTask.todoListId;
+            const tasks = stateCopy[newTask.todoListId];
             const newTasks = [newTask, ...tasks];
             stateCopy[newTask.todoListId] = newTasks;
             return stateCopy;
