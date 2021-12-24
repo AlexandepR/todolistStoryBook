@@ -36,9 +36,12 @@ function AppWithRedux() {
     },[])
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
-        const action = removeTaskAC(id, todolistId);
-        dispatch(action);
-    }, [dispatch]);
+        todolistsAPI.deleteTask(todolistId, id)
+            .then(res => {
+                const action = removeTaskAC(id, todolistId);
+                dispatch(action);
+            })
+    }, []);
 
     const addTask = useCallback(function (title: string, todolistId: string) {
         const action = addTaskAC(title, todolistId);
