@@ -165,7 +165,17 @@ export const changeTodolistTitleTC = (id: string, title: string) => {
     }
 }
 
-export const changeTaskStatusTC = (taskId: string, status: TaskStatuses, todolistId: string) => {
+export type UpdateDomainTaskModelType = {
+    title?: string
+    description?: string
+    status?: TaskStatuses
+    priority?: number
+    startDate?: string
+    deadline?: string
+}
+
+
+export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelType, todolistId: string) => {
     return (dispatch: Dispatch, getState: () => AppRootStateType) => {
         const state = getState();
         const task = state.tasks[todolistId].find(t => t.id === taskId)
@@ -173,15 +183,16 @@ export const changeTaskStatusTC = (taskId: string, status: TaskStatuses, todolis
             console.warn('task not found in the state')
             return;
         }
-        const model: UpdateTaskModelType = {
+        const apiModel: UpdateTaskModelType = {
             deadline: task.deadline,
             description: task.description,
             priority: task.priority,
             startDate: task.startDate,
             title: task.title,
-            status: status
+            status: task.status,
+            ...domainModel
         }
-        todolistsAPI.updateTask(todolistId, taskId, model)
+        todolistsAPI.updateTask(todolistId, taskId, apiModel)
             .then((res) => {
                 dispatch(changeTaskStatusAC(taskId, status, todolistId))
             })
