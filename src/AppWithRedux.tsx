@@ -6,9 +6,8 @@ import {AddItemForm} from './AddItemForm';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core';
 import {Menu} from '@material-ui/icons';
 import {
-    addTodolistAC, addTodolistTC,
+    addTodolistTC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
     fetchTodolistsTC,
     FilterValuesType,
     removeTodolistTC,
@@ -80,7 +79,7 @@ function AppWithRedux() {
     }, [])
 
     const addTodolist = useCallback((title: string) => {
-      const thunk = addTodolistTC(title)
+        const thunk = addTodolistTC(title)
         dispatch(thunk)
     }, []);
 
