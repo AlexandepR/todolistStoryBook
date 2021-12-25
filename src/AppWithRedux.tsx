@@ -15,8 +15,6 @@ import {
 } from './state/todolists-reducer';
 import {
     addTaskTC,
-    changeTaskStatusAC, changeTaskStatusTC,
-    changeTaskTitleAC,
     changeTodolistTitleTC,
     removeTaskTC, updateTaskTC
 } from './state/tasks-reducer';
