@@ -15,8 +15,6 @@ const instance = axios.create({
     // ...settings
 })
 
-
-
 // api
 export const todolistsAPI = {
     getTodolist() {
@@ -80,7 +78,6 @@ type ResponseType<D = {}> = {
     messages: string[],
     data: D
 }
-
 type GetTasksResponse = {
     error: string | null
     totalCount: number
