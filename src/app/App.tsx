@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect} from 'react'
 import './App.css';
 import {Todolist} from '../Todolist';
-import {v1} from 'uuid';
 import {AddItemForm} from '../components/AdditemForm/AddItemForm';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from '@material-ui/core';
 import {Menu} from '@material-ui/icons';
@@ -27,7 +26,7 @@ export type TasksStateType = {
 }
 
 
-function AppWithRedux() {
+function App() {
 
     return (
         <div className="App">
@@ -43,16 +42,14 @@ function AppWithRedux() {
                 </Toolbar>
             </AppBar>
             <Container fixed>
-
+                <TodolistsList/>
             </Container>
         </div>
     );
 }
 
-type TodolistListPropsType = {
-    todolist: Array<TodolistDomainType>
-}
-const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {
+type TodolistListPropsType = {}
+const TodolistsList: React.FC<TodolistListPropsType> = (props) => {
 
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
@@ -99,65 +96,64 @@ const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {
     const addTodolist = useCallback((title: string) => {
         const thunk = addTodolistTC(title)
         dispatch(thunk)
-    }, []);
+    }, [dispatch]);
 
 
-return (
-    <>
-        <Grid container style={{padding: "20px"}}>
-            <AddItemForm addItem={addTodolist}/>
-        </Grid>
-        <Grid container spacing={3}>
+    return (
+        <>
+            <Grid container style={{padding: "20px"}}>
+                <AddItemForm addItem={addTodolist}/>
+            </Grid>
+            <Grid container spacing={3}>
+                {
+                    todolists.map(tl => {
+                        let allTodolistTasks = tasks[tl.id];
+
+                        return <Grid item key={tl.id}>
+                            <Paper style={{padding: "10px"}}>
+                                <Todolist
+                                    id={tl.id}
+                                    title={tl.title}
+                                    tasks={allTodolistTasks}
+                                    removeTask={removeTask}
+                                    changeFilter={changeFilter}
+                                    addTask={addTask}
+                                    changeTaskStatus={changeStatus}
+                                    filter={tl.filter}
+                                    removeTodolist={removeTodolist}
+                                    changeTaskTitle={changeTaskTitle}
+                                    changeTodolistTitle={changeTodolistTitle}
+                                />
+                            </Paper>
+                        </Grid>
+                    })
+                }
+            </Grid>
             {
-                todolists.map(tl => {
+                props.todolists.map(tl => {
                     let allTodolistTasks = tasks[tl.id];
 
-                    return <Grid item key={tl.id}>
-                        <Paper style={{padding: "10px"}}>
-                            <Todolist
-                                id={tl.id}
-                                title={tl.title}
-                                tasks={tasksForTodolist}
-                                removeTask={removeTask}
-                                changeFilter={changeFilter}
-                                addTask={addTask}
-                                changeTaskStatus={changeStatus}
-                                filter={tl.filter}
-                                removeTodolist={removeTodolist}
-                                changeTaskTitle={changeTaskTitle}
-                                changeTodolistTitle={changeTodolistTitle}
-                            />
-                        </Paper>
-                    </Grid>
+                    return (
+                        <Grid item key={tl.id}>
+                            <Paper style={{padding: "10px"}}>
+                                <Todolist
+                                    id={tl.id}
+                                    title={tl.title}
+                                    tasks={allTodolistTasks}
+                                    removeTask={removeTask}
+                                    changeFilter={changeFilter}
+                                    addTask={addTask}
+                                    changeTaskStatus={changeStatus}
+                                    filter={tl.filter}
+                                    removeTodolist={removeTodolist}
+                                    changeTaskTitle={changeTaskTitle}
+                                    changeTodolistTitle={changeTodolistTitle}
+                                />
+                            </Paper>
+                        </Grid>)
                 })
             }
-        </Grid>
-        {
-            props.todolists.map(tl => {
-                let allTodolistTasks = tasks[tl.id];
-                // let tasksForTodolist = allTodolistTasks;
-
-                return (
-                    <Grid item key={tl.id}>
-                        <Paper style={{padding: "10px"}}>
-                            <Todolist
-                                id={tl.id}
-                                title={tl.title}
-                                tasks={tasksForTodolist}
-                                removeTask={removeTask}
-                                changeFilter={changeFilter}
-                                addTask={addTask}
-                                changeTaskStatus={changeStatus}
-                                filter={tl.filter}
-                                removeTodolist={removeTodolist}
-                                changeTaskTitle={changeTaskTitle}
-                                changeTodolistTitle={changeTodolistTitle}
-                            />
-                        </Paper>
-                    </Grid>)
-            })
-        }
-    </>)
+        </>)
 }
 
-export default AppWithRedux;
+export default App;
