@@ -5,9 +5,9 @@ import {
     SetTodolistsActionType
 } from './todolists-reducer';
 // import {TasksStateType} from '../trash/App';
-import {TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from "../api/todolist-api";
+import {TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from "../../../api/todolist-api";
 import {Dispatch} from "redux";
-import {AppRootStateType} from "./store";
+import {AppRootStateType} from "../../../app/store";
 
 //
 
@@ -125,6 +125,9 @@ export type UpdateDomainTaskModelType = {
     priority?: number
     startDate?: string
     deadline?: string
+}
+export type TasksStateType = {
+ [key: string]: Array<TaskType>
 }
 type ActionsType =
     | ReturnType<typeof removeTaskAC>
