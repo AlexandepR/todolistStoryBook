@@ -2,30 +2,29 @@ import {v1} from 'uuid';
 import {todolistsAPI, TodolistType} from "../api/todolist-api";
 import {Dispatch} from "redux";
 
-export type RemoveTodolistActionType = {
-    type: 'REMOVE-TODOLIST',
-    id: string
-}
-export type AddTodolistActionType = {
+
+type AddTodolistActionType = {
     type: 'ADD-TODOLIST',
     todolist: TodolistType
 }
-export type ChangeTodolistTitleActionType = {
+type ChangeTodolistTitleActionType = {
     type: 'CHANGE-TODOLIST-TITLE',
     id: string
     title: string
 }
-export type ChangeTodolistFilterActionType = {
+type ChangeTodolistFilterActionType = {
     type: 'CHANGE-TODOLIST-FILTER',
     id: string
     filter: FilterValuesType
 }
-export type SetTodolistsActionType = {
+type SetTodolistsActionType = {
     type: 'SET-TODOLISTS',
     todolists: Array<TodolistType>
 }
 
-type ActionsType = RemoveTodolistActionType | AddTodolistActionType
+type ActionsType =
+    RemoveTodolistActionType
+    | AddTodolistActionType
     | ChangeTodolistTitleActionType
     | ChangeTodolistFilterActionType
     | SetTodolistsActionType
@@ -76,7 +75,9 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
     }
 }
 
-export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType => {
+type RemoveTodolistActionType = ReturnType<typeof removeTodolistAC>
+
+export const removeTodolistAC = (todolistId: string) => {
     return {type: 'REMOVE-TODOLIST', id: todolistId}
 }
 export const addTodolistAC = (todolist: TodolistType): AddTodolistActionType => {
@@ -101,14 +102,14 @@ export const fetchTodolistsTC = () => {
     }
 }
 export const removeTodolistTC = (todolistId: string) => {
-    return(dispatch: Dispatch) => {
+    return (dispatch: Dispatch) => {
         todolistsAPI.deleteTodolist(todolistId)
-            .then ((res) => {
+            .then((res) => {
                 dispatch(removeTodolistAC(todolistId))
             })
     }
 }
-export const addTodolistTC = (title:string) => {
+export const addTodolistTC = (title: string) => {
     return (dispatch: Dispatch) => {
         todolistsAPI.createTodolist(title)
             .then((res) => {
