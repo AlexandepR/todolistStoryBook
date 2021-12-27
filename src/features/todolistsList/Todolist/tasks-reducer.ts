@@ -8,6 +8,7 @@ import {
 import {TaskStatuses, TaskType, todolistsAPI, UpdateTaskModelType} from "../../../api/todolist-api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../../app/store";
+import {setErrorAC, SetErrorActionType, setStatusAC, SetStatusActionType} from "../../../app/app-reducer";
 
 //
 
@@ -66,12 +67,13 @@ export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) =>
     ({type: 'SET-TASKS', todolistId, tasks} as const)
 
 // thunks
-export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
+export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<ActionsType | SetStatusActionType>) => {
+    dispatch(setStatusAC('loading'))
     todolistsAPI.getTasks(todolistId)
         .then((res) => {
             const tasks = res.data.items
-            const action = setTasksAC(tasks, todolistId)
-            dispatch(action)
+            dispatch(setTasksAC(tasks, todolistId))
+            dispatch(setStatusAC('succeeded'))
         })
 }
 export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
@@ -81,12 +83,20 @@ export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: D
             dispatch(action);
         })
 }
-export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
+export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispatch<ActionsType | SetErrorActionType>) => {
     todolistsAPI.createTask(todolistId, title)
         .then(res => {
-            const task = res.data.data.item;
-            const action = addTaskAC(task);
-            dispatch(action)
+            if (res.data.resultCode === 0) {
+                const task = res.data.data.item;
+                const action = addTaskAC(task);
+                dispatch(action)
+            } else {
+                if (res.data.messages.length) {
+                    dispatch(setErrorAC(res.data.messages[0]))
+                } else {
+                    dispatch(setErrorAC('some error occurred'))
+                }
+            }
         })
 }
 // export const changeTodolistTitleTC = (id: string, title: string) => (dispatch: Dispatch<ActionsType>) => {

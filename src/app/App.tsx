@@ -5,6 +5,9 @@ import {Menu} from '@material-ui/icons';
 import {TodolistsList} from "../features/todolistsList/TodolistsList";
 import {LinearProgress} from "@mui/material";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "./store";
+import {RequestStatusType} from "./app-reducer";
 
 
 // export type TasksStateType = {
@@ -13,7 +16,7 @@ import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 
 
 function App() {
-
+    const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
     return (
         <div className="App">
             <ErrorSnackbar/>
@@ -27,7 +30,7 @@ function App() {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
-                <LinearProgress />
+                {status === 'loading' && <LinearProgress /> }
             </AppBar>
             <Container fixed>
                 <TodolistsList />
