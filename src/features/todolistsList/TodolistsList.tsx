@@ -1,10 +1,9 @@
-// const TodolistsList: React.FC = () => {
 import React, {useCallback, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/store";
 import {
     addTodolistTC,
-    changeTodolistFilterAC,
+    changeTodolistFilterAC, changeTodolistTitleTC,
     fetchTodolistsTC,
     FilterValuesType,
     removeTodolistTC,
@@ -16,7 +15,8 @@ import {Grid, Paper} from "@material-ui/core";
 import {AddItemForm} from "../../components/AdditemForm/AddItemForm";
 import {Todolist} from "./Todolist/Todolist";
 
-export const TodolistsList: React.FC<TodolistListPropsType> = (props) => {
+// export const TodolistsList: React.FC<TodolistListPropsType> = (props) => {
+export const TodolistsList: React.FC = () => {
 
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
@@ -97,7 +97,7 @@ export const TodolistsList: React.FC<TodolistListPropsType> = (props) => {
                 }
             </Grid>
             {
-                props.todolists.map(tl => {
+                todolists.map(tl => {
                     let allTodolistTasks = tasks[tl.id];
 
                     return (
