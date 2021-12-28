@@ -14,8 +14,11 @@ import {RequestStatusType} from "./app-reducer";
 //     [key: string]: Array<TaskType>
 // }
 
+type PropsType = {
+    demo?: boolean
+}
 
-function App() {
+function App({demo = false}:PropsType) {
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
     return (
         <div className="App">

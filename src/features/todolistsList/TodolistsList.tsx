@@ -16,13 +16,22 @@ import {AddItemForm} from "../../components/AdditemForm/AddItemForm";
 import {Todolist} from "./Todolist/Todolist";
 
 // export const TodolistsList: React.FC<TodolistListPropsType> = (props) => {
-export const TodolistsList: React.FC = () => {
+
+type PropsType ={
+    demo?: boolean
+}
+
+
+export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
 
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch();
 
     useEffect(() => {
+        if (demo) {
+            return
+        }
         dispatch(fetchTodolistsTC())
     }, [])
 
