@@ -33,7 +33,7 @@ export const Todolist = React.memo(function ({demo = false,...props}: PropsType)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if(!demo) {
+        if(demo) {
             return
         }
             dispatch(fetchTasksTC(props.id))
