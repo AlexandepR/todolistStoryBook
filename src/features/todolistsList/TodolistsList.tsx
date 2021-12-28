@@ -99,35 +99,36 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
                                     removeTodolist={removeTodolist}
                                     changeTaskTitle={changeTaskTitle}
                                     changeTodolistTitle={changeTodolistTitle}
+                                    demo={demo}
                                 />
                             </Paper>
                         </Grid>
                     })
                 }
             </Grid>
-            {
-                todolists.map(tl => {
-                    let allTodolistTasks = tasks[tl.id];
+            {/*{*/}
+            {/*    todolists.map(tl => {*/}
+            {/*        let allTodolistTasks = tasks[tl.id];*/}
 
-                    return (
-                        <Grid item key={tl.id}>
-                            <Paper style={{padding: "10px"}}>
-                                <Todolist
-                                    id={tl.id}
-                                    title={tl.title}
-                                    tasks={allTodolistTasks}
-                                    removeTask={removeTask}
-                                    changeFilter={changeFilter}
-                                    addTask={addTask}
-                                    changeTaskStatus={changeStatus}
-                                    filter={tl.filter}
-                                    removeTodolist={removeTodolist}
-                                    changeTaskTitle={changeTaskTitle}
-                                    changeTodolistTitle={changeTodolistTitle}
-                                />
-                            </Paper>
-                        </Grid>)
-                })
-            }
+            {/*        return (*/}
+            {/*            <Grid item key={tl.id}>*/}
+            {/*                <Paper style={{padding: "10px"}}>*/}
+            {/*                    <Todolist*/}
+            {/*                        id={tl.id}*/}
+            {/*                        title={tl.title}*/}
+            {/*                        tasks={allTodolistTasks}*/}
+            {/*                        removeTask={removeTask}*/}
+            {/*                        changeFilter={changeFilter}*/}
+            {/*                        addTask={addTask}*/}
+            {/*                        changeTaskStatus={changeStatus}*/}
+            {/*                        filter={tl.filter}*/}
+            {/*                        removeTodolist={removeTodolist}*/}
+            {/*                        changeTaskTitle={changeTaskTitle}*/}
+            {/*                        changeTodolistTitle={changeTodolistTitle}*/}
+            {/*                    />*/}
+            {/*                </Paper>*/}
+            {/*            </Grid>)*/}
+            {/*    })*/}
+            {/*}*/}
         </>)
 }
