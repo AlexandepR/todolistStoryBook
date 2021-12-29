@@ -16,7 +16,7 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
 
     const addItemHandler = () => {
         if (title.trim() !== '') {
-            props.addItem(title);
+            addItem(title);
             setTitle('');
         } else {
             setError('Title is required');
@@ -38,6 +38,7 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
 
     return <div>
         <TextField variant="outlined"
+                   disabled={disabled}
                    error={!!error}
                    value={title}
                    onChange={onChangeHandler}
@@ -45,7 +46,7 @@ export const AddItemForm = React.memo(function ({addItem, disabled = false}: Add
                    label="Title"
                    helperText={error}
         />
-        <IconButton color="primary" onClick={addItem}>
+        <IconButton color="primary" onClick={addItem} disabled={disabled}>
             <AddBox/>
         </IconButton>
     </div>
