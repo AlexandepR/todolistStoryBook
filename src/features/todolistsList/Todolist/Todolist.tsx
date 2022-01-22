@@ -29,7 +29,7 @@ type PropsType = {
 
 export const Todolist = React.memo(function ({demo = false,...props}: PropsType) {
     console.log('Todolist called')
-    // if(typeof props.demo === 'undefined') props.demo = false;
+    // if(typeof props.demo === 'undefined') props.demo = false;  //
 
     const dispatch = useDispatch()
 
